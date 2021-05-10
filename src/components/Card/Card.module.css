@@ -1,0 +1,70 @@
+.cardContainer {
+  width: 100%;
+  position: relative;
+  height: 20vh;
+  background-color: #eee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 10px 0px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.imageContainer {
+  width: 30%;
+  height: 100%;
+  overflow: hidden;
+  margin-right: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.cardContentContainer {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.price {
+  margin-top: 10px;
+  font-size: 24px;
+}
+.wishlistContainer {
+  position: absolute !important;
+  top: 2%;
+  right: 2%;
+  /* padding: 2px 5px; */
+  /* text-align: center; */
+  /* border-radius: 50%; */
+}
+.editIcon:hover svg{
+    color: blue;
+}
+.deleteIcon:hover svg{ 
+    color: red;
+}
+/* .wishlistContainer:hover {
+  background-color: rgb(200, 200, 200);
+} */
+/* .wishlistContainer > svg {
+  margin-top: 4px;
+} */
+
+@media screen and (max-width: 700px) {
+  .cardContainer {
+    width: 100%;
+  }
+  .cardContentContainer {
+    padding-top: 10px;
+  }
+}

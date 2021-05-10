@@ -1,0 +1,32 @@
+.hamburgerContainer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  background-color: rgb(20, 20, 20);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.line {
+  width: 30px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: white;
+  transition: transform 550ms linear;
+}
+.line1 {
+  transform: translateY(3px) rotate(45deg);
+}
+.line2 {
+  display: none;
+}
+.line3 {
+  transform: translateY(-5px) rotate(135deg);
+}
+
+@media screen and (min-width: 1200px) {
+  .hamburgerContainer {
+    display: none;
+  }
+}

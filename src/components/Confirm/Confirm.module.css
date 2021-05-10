@@ -1,0 +1,20 @@
+.confirmContainer {
+  background-color: white;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.confirmContainer > p {
+  margin: 10px auto;
+  font-size: 18px;
+}
+.actions {
+  align-self: flex-end;
+}
+.actions > button {
+  margin: 0px 10px;
+}

@@ -1,0 +1,40 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.imageContainer {
+  flex: 1;
+  height: 50vh;
+  padding: 10px;
+}
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.roomDetails {
+  flex: 1;
+  color: rgb(220, 220, 220);
+  padding-right: 10px;
+}
+.description {
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.roomInfo {
+  font-size: 18px;
+  font-weight: bolder;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+}
+@media screen and (max-width: 700px) {
+  .container {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}

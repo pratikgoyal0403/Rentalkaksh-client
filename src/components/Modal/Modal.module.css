@@ -1,0 +1,15 @@
+.modalContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideIn 100ms linear forwards;
+}
+@keyframes slideIn {
+  0% {
+    transform: translateY(-40%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}

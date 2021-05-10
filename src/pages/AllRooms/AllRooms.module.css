@@ -1,0 +1,23 @@
+.container > h1 {
+  color: white;
+}
+.container {
+  width: 40%;
+  margin: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    width: 95%;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 800px) {
+  .container {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+  .container {
+    width: 50%;
+  }
+}

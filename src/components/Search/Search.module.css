@@ -1,0 +1,32 @@
+.searchContainer {
+  width: 40%;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.searchBox {
+  width: 95%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 16px;
+  background-color: #eee;
+  border-radius: 20px;
+  border: none;
+}
+.searchBox:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 700px) {
+  .searchContainer {
+    width: 95%;
+  }
+}
+@media screen and (max-width: 1200px)and (min-width: 701px) {
+  .searchContainer {
+    width: 70%;
+  }
+}

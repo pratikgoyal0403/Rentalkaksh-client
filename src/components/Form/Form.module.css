@@ -1,0 +1,48 @@
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 20px 5px rgb(50, 50, 50);
+}
+.formContainer > button {
+  width: 70%;
+}
+/* .container label {
+      color: white  !important;
+  }
+  .container input {
+      color: white;
+  }
+  .container div::after {
+      border-bottom: 1px solid white;
+  } */
+.formContainer > h1 {
+  margin-bottom: 10px;
+}
+.formContainer div {
+  margin-bottom: 10px;
+  width: 100%;
+}
+input[type="file"] {
+  /* border: none;
+      outline: none; */
+  display: none;
+}
+.imagePicker {
+  margin-bottom: 10px !important;
+  background-color: rgb(43, 204, 43) !important;
+  width: 50% !important;
+  align-self: flex-start !important;
+}
+.preview {
+  width: 50%;
+  height: 20%;
+  max-height: 100px;
+  object-fit: contain;
+  margin: 10px auto;
+}

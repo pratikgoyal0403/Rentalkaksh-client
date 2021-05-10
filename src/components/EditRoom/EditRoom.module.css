@@ -1,0 +1,19 @@
+.EditContainer {
+  width: 30%;
+}
+@media screen and (max-width: 650px) {
+    .EditContainer {
+      width: 95%;
+    }
+  }
+  @media screen and (min-width: 651px) and (max-width: 900px) {
+    .EditContainer {
+      width: 60%;
+    }
+  }
+  @media screen and (min-width: 901px) and (max-width: 1400px) {
+    .EditContainer {
+      width: 40%;
+    }
+  }
+  
