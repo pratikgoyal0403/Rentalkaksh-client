@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import Header from "../../components/Header/Header";
 import Heading from "../../components/Heading/Heading";
 import Search from "../../components/Search/Search";
 import classes from "./Home.module.css";
@@ -19,10 +21,13 @@ function Home(props) {
         searchResult: result.searchResult,
         searchStr: inputValue,
       });
+    }else{
+      toast.error('something went wrong')
     }
   };
   return (
     <div className={classes.homeContainer}>
+      <Header />
       <div className={classes.searchContainer}>
         <Heading />
         <Search placeholder="Search for Rooms" submit={inputSubmit} />
@@ -33,5 +38,6 @@ function Home(props) {
     </div>
   );
 }
+
 
 export default Home;

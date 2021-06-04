@@ -5,6 +5,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  /* flex-direction: column; */
   position: relative;
 }
 .sideBarContainer {
@@ -18,7 +19,7 @@
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   transition: transform 500ms linear;
-  z-index: 99;
+  z-index: 101;
 }
 .hideSideBarContainer {
   transform: translateX(-100%);

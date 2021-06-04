@@ -1,30 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import classes from "./Dashboard.module.css";
 import HomeIcon from "@material-ui/icons/Home";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import AddNewRoom from "../../components/AddNewRoom/AddNewRoom";
-import DashBoardHome from "../../components/DashBoardHome/DashBoardHome";
+import AddNewRoom from "../../../components/AddNewRoom/AddNewRoom";
+import DashBoardHome from "../../../components/DashBoardHome/DashBoardHome";
 import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import Hamburger from "../../components/hamburger/Hamburger";
-import Backdrop from "../../components/Backdrop/Backdrop";
-
-const autoLogin = async (token) => {
-  const response = await fetch("http://localhost:8080/admin/autoLogin", {
-    method: "GET",
-    headers: {
-      Authorization: "bearer=" + token,
-    },
-  });
-  const result = await response.json();
-  return new Promise((resolve, reject) => {
-    if (response.status === 200) {
-      resolve(result.user);
-    } else {
-      reject("something went wrong");
-    }
-  });
-};
+import Hamburger from "../../../components/hamburger/Hamburger";
+import Backdrop from "../../../components/Backdrop/Backdrop";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions/actions";
+import Header from "../../../components/Header/Header";
 
 function Dashboard(props) {
   const [currentRoute, setCurrentRoute] = React.useState("dashboard");
@@ -32,57 +17,42 @@ function Dashboard(props) {
   const [editing, setEditing] = React.useState(false);
   const [deleting, setDeleting] = React.useState(false);
   const [editItem, setEditingItem] = React.useState(null);
-  const { auth, setAuth } = useContext(AuthContext);
 
   const setEditItem = (room) => {
     setEditingItem((prevValue) => ({ ...room }));
   };
 
   React.useEffect(() => {
-    const token = document.cookie
-      ?.split("rentalkakshAdmin=")
-      ?.pop()
-      ?.split(";")
-      ?.shift();
-    if (token) {
-      autoLogin(token)
-        .then((result) =>
-          setAuth((preValue) => ({
-            username: result.username,
-            email: result.email,
-            _id: result.userId,
-          }))
-        )
-        .catch((err) => {
-          props.history.replace("/admin/login");
-        });
+    if (props.isAdminLogin) {
+      return;
+    }
+    const hasToken = document.cookie.includes("rentalkakshAdmin=");
+    if (hasToken) {
+      const token = document.cookie
+        .split("rentalkakshAdmin=")
+        .pop()
+        .split(";")
+        .shift();
+      props.autoLogin(token);
       return;
     }
     props.history.replace("/admin/login");
   }, []);
   const AddNewRoomHandler = async (formdata) => {
-    const response = await fetch("http://localhost:8080/rooms/newroom", {
-      method: "POST",
-      body: formdata,
-    });
-    const result = await response.json();
-    return new Promise((resolve, reject) => {
-      if (response.status === 201) {
-        resolve(result);
-      } else {
-        reject(response);
-      }
-    });
+    formdata.append("ownerId", props.adminInfo._id);
+    props.addNewRoom(formdata);
   };
   return (
     <div className={classes.dashBoardContainer}>
       <Router>
         <Backdrop
-          visible={editing}
+          visible={editing || showSideBar}
+          setSideBar={setShowSideBar}
           editItem={editItem}
           setEditing={setEditing}
           deleting={deleting}
           setDeleting={setDeleting}
+          modal={editing || deleting ? true : false}
         />
         <Hamburger setSideBar={setShowSideBar} sideBar={showSideBar} />
         <aside
@@ -117,7 +87,7 @@ function Dashboard(props) {
             <h1>Add New Room</h1>
           </NavLink>
         </aside>
-        {auth && (
+        {props.isAdminLogin && (
           <main className={classes.mainContainer}>
             {/* main container code */}
             {/* {option === "Home" ? <DashBoardHome /> : <AddNewRoom />} */}
@@ -152,4 +122,17 @@ function Dashboard(props) {
   );
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    adminInfo: state.admin.adminInfo,
+    isAdminLogin: state.admin.isAdminLogin,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    autoLogin: (token) => dispatch(actions.autoLogin(token)),
+    addNewRoom: (formData) => dispatch(actions.addNewRoom(formData)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

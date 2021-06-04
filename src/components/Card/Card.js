@@ -23,7 +23,7 @@ function Card({
     >
       <div className={classes.imageContainer}>
         <img
-          src={"http://localhost:8080/" + room.roomImageUrl}
+          src={"https://rentalkaksh.herokuapp.com/" + room.roomImageUrl}
           alt={room.title}
           className={classes.image}
         />

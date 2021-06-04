@@ -1,0 +1,55 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loginContainer {
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 20%;
+}
+.loginContainer > h1 {
+  margin-bottom: 10px;
+}
+.loginContainer > div {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.loginContainer > button {
+  margin-top: 20px;
+  width: 100%;
+}
+.specialText {
+  margin-top: 20px;
+}
+@media screen and (max-width: 500px) {
+  .loginContainer {
+    width: 90%;
+  }
+  .loginContainer div {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 800px) {
+  .loginContainer {
+    width: 70%;
+  }
+  .loginContainer div {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+  .loginContainer {
+    width: 50%;
+  }
+  .loginContainer div {
+    width: 100%;
+  }
+}

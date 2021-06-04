@@ -1,36 +1,37 @@
 import classes from "./AllRooms.module.css";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
-import { RoomContext } from "../../context/RoomContext";
 import Spinner from "../../components/Spinner/Spinner";
-const getRooms = async () => {
-  const response = await fetch("http://localhost:8080/rooms");
-  const result = await response.json();
-  return new Promise((resolve, reject) => {
-    if (response.status === 200) {
-      return resolve(result);
-    } else {
-      return reject(result);
-    }
-  });
-};
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/actions";
+import Header from "../../components/Header/Header";
 function AllRooms(props) {
   const [loading, setLoading] = useState(true);
-  const { rooms, setRooms } = useContext(RoomContext);
   useEffect(() => {
-    getRooms()
-      .then((result) => {
-        setRooms(result.rooms);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    props.getAllRooms();
   }, []);
+  useEffect(() => {
+    setLoading(false);
+  }, [props.rooms]);
   return (
     <div className={classes.container}>
       {loading && <Spinner />}
-      {rooms.length && rooms.map((room) => <Card room={room} key={room._id} />)}
+      {props.rooms?.length &&
+        props.rooms?.map((room) => <Card room={room} key={room._id} />)}
     </div>
   );
 }
 
-export default AllRooms;
+const mapStateToProps = (state) => {
+  return {
+    rooms: state.app.rooms,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllRooms: () => dispatch(actions.getAllRooms()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllRooms);

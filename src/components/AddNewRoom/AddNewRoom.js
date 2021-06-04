@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./AddNewRoom.module.css";
-import { toast } from "react-toastify";
 import Form from "../Form/Form";
+import { connect } from "react-redux";
 
-function AddNewRoom({ setCurrentRoute, location: { pathname }, AddNewRoom }) {
+function AddNewRoom({
+  setCurrentRoute,
+  location: { pathname },
+  AddNewRoom,
+  rooms,
+}) {
   const [loading, setLoading] = useState(false);
-  React.useEffect(() => {
+  useEffect(() => {
     setCurrentRoute(pathname.split("/").pop());
   }, []);
 
   const submit = (formData) => {
-    AddNewRoom(formData)
-      .then((result) => {
-        setLoading(false);
-        toast.success(result.message);
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error("something went wrong");
-      });
+    setLoading(true);
+    AddNewRoom(formData);
   };
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, [rooms.length]);
   return (
     <div className={classes.wrapper}>
       <div className={classes.container}>
@@ -34,4 +35,10 @@ function AddNewRoom({ setCurrentRoute, location: { pathname }, AddNewRoom }) {
   );
 }
 
-export default AddNewRoom;
+const mapStateToProps = (state) => {
+  return {
+    rooms: state.app.rooms,
+  };
+};
+
+export default connect(mapStateToProps)(AddNewRoom);

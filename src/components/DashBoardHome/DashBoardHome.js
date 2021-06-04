@@ -2,39 +2,44 @@ import React, { useEffect } from "react";
 import classes from "./DashBoardHome.module.css";
 import Card from "../Card/Card";
 import Spinner from "../Spinner/Spinner";
-const getRooms = async () => {
-  const response = await fetch("http://localhost:8080/rooms");
-  const result = await response.json();
-  return new Promise((resolve, reject) => {
-    if (response.status === 200) {
-      return resolve(result);
-    } else {
-      return reject(result);
-    }
-  });
-};
+import { connect } from "react-redux";
+import * as actions from '../../store/actions/actions'
+// const getRooms = async () => {
+//   const response = await fetch("https://rentalkaksh.herokuapp.com/rooms");
+//   const result = await response.json();
+//   return new Promise((resolve, reject) => {
+//     if (response.status === 200) {
+//       return resolve(result);
+//     } else {
+//       return reject(result);
+//     }
+//   });
+// };
 function DashBoardHome({
   setCurrentRoute,
   location: { pathname },
   setEditing,
   setEditItem,
-  setDeleting
+  setDeleting,
+  rooms,
+  getAllRooms
 }) {
-  const [rooms, setRooms] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   useEffect(() => {
     setCurrentRoute(pathname.split("/").pop());
-    getRooms()
-      .then((result) => {
-        setRooms(result.rooms);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    if(!rooms) {
+      getAllRooms()
+    }
   }, []);
+  useEffect(()=> {
+    if(rooms){
+      setLoading(false)
+    }
+  }, [rooms])
   return (
     <div className={classes.wrapper}>
       {loading && <Spinner />}
-      {rooms.length &&
+      {rooms?.length &&
         rooms.map((room) => (
           <Card
             admin={true}
@@ -49,4 +54,16 @@ function DashBoardHome({
   );
 }
 
-export default DashBoardHome;
+const mapStateToProps = state => {
+  return {
+    rooms: state.app.rooms
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllRooms: () => dispatch(actions.getAllRooms())
+  }
+}
+
+export default  connect(mapStateToProps, mapDispatchToProps)(DashBoardHome);

@@ -1,0 +1,58 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signupContainer {
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 20%;
+}
+.signupContainer > input {
+  width: 100%;
+}
+.signupContainer > h1 {
+  margin-bottom: 10px;
+}
+.signupContainer > div {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.specialText {
+  margin-top: 20px;
+}
+.signupContainer > button {
+  margin-top: 20px;
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .signupContainer {
+    width: 90%;
+  }
+  .signupContainer div {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 800px) {
+  .signupContainer {
+    width: 70%;
+  }
+  .signupContainer div {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+  .signupContainer {
+    width: 50%;
+  }
+  .signupContainer div {
+    width: 100%;
+  }
+}

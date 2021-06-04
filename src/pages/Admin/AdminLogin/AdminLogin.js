@@ -1,13 +1,28 @@
+import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import React, { useContext } from "react";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../context/AuthContext";
 import classes from "./AdminLogin.module.css";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions/actions";
 function AdminLogin(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { setAuth } = useContext(AuthContext);
+  useEffect(() => {
+    if (props.isAdminLogin) {
+      return props.history.replace("/admin/dashboard");
+    }
+    const hasToken = document.cookie.includes("rentalkakshAdmin=");
+    if (hasToken) {
+      const token = document.cookie
+        ?.split("rentalkakshAdmin=")
+        ?.pop()
+        ?.split(";")
+        ?.shift();
+      return props.autoLogin(token);
+    }
+    props.history.replace("/admin/login");
+  }, []);
   const submitHandler = async () => {
     if (!email.trim() || !password.trim()) {
       return toast.warning("inputs cannot be empty");
@@ -15,20 +30,15 @@ function AdminLogin(props) {
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    const response = await fetch("http://localhost:8080/admin/login", {
-      method: "POST",
-      body: formData,
-    });
-    const result = await response.json();
-    if (response.status === 200) {
-      setAuth(result.user);
-      document.cookie = "rentalkakshAdmin=" + result.token;
-      toast.success(result.message);
+    props.adminLogin(formData);
+  };
+  React.useEffect(() => {
+    if (props.isAdminLogin) {
       props.history.push("/admin/dashboard");
     } else {
-      toast.error(result.message);
+      // toast.error("login error");
     }
-  };
+  }, [props.isAdminLogin]);
   return (
     <div className={classes.container}>
       <div className={classes.loginContainer}>
@@ -40,6 +50,7 @@ function AdminLogin(props) {
           value={email}
           type="email"
           required
+          rowsMax={5}
         />
         <TextField
           id="standard-basic"
@@ -57,4 +68,17 @@ function AdminLogin(props) {
   );
 }
 
-export default AdminLogin;
+const mapStateToProps = (state) => {
+  return {
+    isAdminLogin: state.admin.isAdminLogin,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    adminLogin: (formData) => dispatch(actions.adminLogin(formData)),
+    autoLogin: (token) => dispatch(actions.autoLogin(token)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLogin);

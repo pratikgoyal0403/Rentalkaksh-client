@@ -8,16 +8,22 @@ function Backdrop(props) {
         <div
           className={classes.BackdropContainer}
           onClick={(e) => {
+            if (!props.modal) {
+              props.setSideBar(false);
+              return;
+            }
             props.setEditing(false);
             props.deleting && props.setDeleting(false);
           }}
         >
-          <Modal
-            editItem={props.editItem}
-            deleting={props.deleting}
-            setDeleting={props.setDeleting}
-            setEditing={props.setEditing}
-          />
+          {props.modal && (
+            <Modal
+              editItem={props.editItem}
+              deleting={props.deleting}
+              setDeleting={props.setDeleting}
+              setEditing={props.setEditing}
+            />
+          )}
         </div>
       )}
     </>

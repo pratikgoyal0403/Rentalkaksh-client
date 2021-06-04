@@ -2,26 +2,16 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import { toast } from "react-toastify";
 import classes from "./Confirm.module.css";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/actions";
 
-function Confirm({ roomId, setDeleting, setEditing }) {
+function Confirm({ roomId, setDeleting, setEditing, deletePost }) {
   const cancelDeletion = () => {
     setEditing(false);
     setDeleting(false);
   };
   const deleteRoom = async () => {
-    console.log(roomId);
-    const response = await fetch(
-      "http://localhost:8080/room/delete/" + roomId,
-      {
-        method: "DELETE",
-      }
-    );
-    const result = await response.json();
-    if(response.status === 200){
-        toast.success('Room deleted')
-    }else{
-        toast.error('something went wrong')
-    }
+    deletePost(roomId);
     setEditing(false);
     setDeleting(false);
   };
@@ -43,4 +33,10 @@ function Confirm({ roomId, setDeleting, setEditing }) {
   );
 }
 
-export default Confirm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deletePost: (roomId) => dispatch(actions.deleteRoom(roomId)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Confirm);

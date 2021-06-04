@@ -1,0 +1,41 @@
+.commentContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-left:  0.5px solid rgb(100, 100, 100);
+}
+.newCommentContainer {
+  flex: 1;
+  width: 100%;
+  border-bottom: 0.5px solid rgb(100, 100, 100);
+}
+.newCommentContainer > input {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(50, 50, 50);
+  color: white;
+}
+.newCommentContainer > input:focus {
+  outline: none;
+}
+.commentsContainer {
+  height: 95%;
+  width: 100%;
+  overflow-y: scroll;
+}
+.commentsContainer > h2{
+    color: white;
+    text-align: center;
+    padding: 20px 0px;
+
+}
+@media screen and (max-width: 700px) {
+    .commentContainer{
+        border: none;
+    }
+}

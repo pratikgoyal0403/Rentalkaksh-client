@@ -15,7 +15,7 @@ function SearchResultPage(props) {
   );
   const [loading, setLoading] = React.useState(false);
   const search = async (searchStr) => {
-    setLoading((prevValue) => true);
+    setLoading((prevValue) => true); //rentalkaksh.herokuapp.com
     const response = await fetch("http://localhost:8080/rooms/search", {
       method: "POST",
       headers: {
